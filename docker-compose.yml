@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+  traefik:
+    image: traefik
+    command: --api --docker --docker.domain=docker.localhost --logLevel=INFO
+    ports:
+    - "80:80"
+    - "8080:8080"
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+    - "traefik.enable=false"
+
+  web:
+    build: ContainerVote.Web/.
+    ports:
+    - "80"
+    restart: always
+    labels:
+    - "traefik.backend=web"
+    - "traefik.frontend.rule=Host:localhost"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    ports:
+    - "80"
+    restart: always
+    labels:
+    - "traefik.backend=api"
+    - "traefik.frontend.rule=PathPrefix:/api/,Host:localhost"
+
+  redis:
+    image: "redis:alpine"
+    restart: always
+    labels:
+    - "traefik.enable=false"
+
+  sql:
+    build: sql/.
+    # for debugging
+    # entrypoint: ["sh", "-c", "sleep infinity"]
+    ports:
+    - "1433"
+    restart: always
+    labels:
+    - "traefik.enable=false"
+
+  store:
+    build:
+      context: .
+      dockerfile: Dockerfile-store
+    environment:
+    - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"
+    restart: always
+    
+  calculate:
+    build:
+      context: .
+      dockerfile: Dockerfile-calculate
+    environment:
+    - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"
+    restart: always

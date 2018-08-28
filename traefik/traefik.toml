@@ -1,0 +1,46 @@
+# traefik.toml
+logLevel = "DEBUG"
+defaultEntryPoints = ["http"]
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+
+[api]
+
+[file]
+
+[backends]
+
+  [backends.web]
+    [backends.web.servers]
+      [backends.web.servers.server0]
+        url = "http://web:80"
+        weight = 1
+
+  [backends.api]
+    [backends.api.servers]
+      [backends.api.servers.server0]
+        url = "http://api:80"
+        weight = 1
+
+[frontends]
+
+  [frontends.web]
+    entryPoints = ["http", "https"]
+    backend = "web"
+    passHostHeader = true
+    [frontends.web.whiteList]
+      useXForwardedFor = true
+    [frontends.web.routes]
+      [frontends.web.routes.route0]
+        rule = "PathPrefix:/"
+        
+  [frontends.api]
+    entryPoints = ["http", "https"]
+    backend = "api"
+    passHostHeader = true
+    [frontends.api.whiteList]
+      useXForwardedFor = true
+    [frontends.api.routes]
+      [frontends.api.routes.route0]
+        rule = "PathPrefix:/api/"

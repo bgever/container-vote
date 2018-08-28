@@ -1,0 +1,93 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Cast your vote!";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<script>
+    var submitter;
+
+    var counts = {
+        DotNet: 0,
+        DotNetCore: 0,
+        JavaScript: 0
+    };
+
+    var votes = {
+        DotNet: 0,
+        DotNetCore: 0,
+        JavaScript: 0
+    };
+
+    function vote(nominee) {
+        votes[nominee]++;
+        counts[nominee]++;
+        var el = document.getElementById(nominee + 'Count');
+        el.innerText = `(${counts[nominee]})`;
+        el.style.color = '#f90';
+        if (submitter) clearTimeout(submitter);
+        submitter = setTimeout(submit, 1000);
+    }
+
+    function submit() {
+        process('DotNet');
+        process('DotNetCore');
+        process('JavaScript');
+    }
+
+    function process(nominee) {
+        if (votes[nominee] === 0) return;
+        window.fetch(
+            '/api/vote',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: votes[nominee], nominee })
+            }
+        ).then(
+            response => {
+                var el = document.getElementById(nominee + 'Count');
+                el.innerText = `(${counts[nominee]})`;
+                el.style.color = 'green';
+            },
+            error => {
+                console.log(`ERROR!`);
+            });
+        votes[nominee] = 0;
+    }
+</script>
+
+<style>
+    .nominees div {
+        padding: 1em;
+    }
+    
+    .body-content button {
+        font-size: 2em;
+    }
+
+    button span { color: silver; }
+</style>
+
+<div class="row nominees">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-4">
+        <button class="btn btn-default col-xs-12" onclick="vote('DotNet')">
+            .NET Framework
+            <span id="DotNetCount">(0)</span>
+        </button>
+    </div>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-4">
+        <button class="btn btn-default col-xs-12" onclick="vote('DotNetCore')">
+            .NET Core
+            <span id="DotNetCoreCount">(0)</span>
+        </button>
+    </div>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-4">
+        <button class="btn btn-default col-xs-12" onclick="vote('JavaScript')">
+            JavaScript
+            <span id="JavaScriptCount">(0)</span>
+        </button>
+    </div>
+</div>

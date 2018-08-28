@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVote.Api", "ContainerVote.Api\ContainerVote.Api.csproj", "{CC6FE13E-506C-4F4F-8330-BCCD2B29C7B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B874CA07-5B92-4056-91C2-4CBF5C75EEAC}"
+ProjectSection(SolutionItems) = preProject
+	docker-compose.yml = docker-compose.yml
+	docker-compose.dockerhub.yml = docker-compose.dockerhub.yml
+	docker-compose.traefik-file.dockerhub.yml = docker-compose.traefik-file.dockerhub.yml
+	docker-compose.azure-app-service.yml = docker-compose.azure-app-service.yml
+	Dockerfile-api = Dockerfile-api
+	Dockerfile-store = Dockerfile-store
+	Dockerfile-calculate = Dockerfile-calculate
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVote.Shared.Primitives", "ContainerVote.Shared.Primitives\ContainerVote.Shared.Primitives.csproj", "{A4EDBC00-BF57-40D6-A8D6-4372B3A7DDC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVote.Store", "ContainerVote.Store\ContainerVote.Store.csproj", "{5F5ED7BE-1E88-4831-9CEC-09CF9219B2C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVote.Web", "ContainerVote.Web\ContainerVote.Web.csproj", "{DF34299A-20CA-46EF-85F3-D1FA89C2B5D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVote.Calculate", "ContainerVote.Calculate\ContainerVote.Calculate.csproj", "{30C3B6F8-3808-4C86-9B13-ABB2E4E33522}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC6FE13E-506C-4F4F-8330-BCCD2B29C7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6FE13E-506C-4F4F-8330-BCCD2B29C7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6FE13E-506C-4F4F-8330-BCCD2B29C7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6FE13E-506C-4F4F-8330-BCCD2B29C7B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EDBC00-BF57-40D6-A8D6-4372B3A7DDC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EDBC00-BF57-40D6-A8D6-4372B3A7DDC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EDBC00-BF57-40D6-A8D6-4372B3A7DDC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EDBC00-BF57-40D6-A8D6-4372B3A7DDC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5ED7BE-1E88-4831-9CEC-09CF9219B2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5ED7BE-1E88-4831-9CEC-09CF9219B2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5ED7BE-1E88-4831-9CEC-09CF9219B2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5ED7BE-1E88-4831-9CEC-09CF9219B2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF34299A-20CA-46EF-85F3-D1FA89C2B5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF34299A-20CA-46EF-85F3-D1FA89C2B5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF34299A-20CA-46EF-85F3-D1FA89C2B5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF34299A-20CA-46EF-85F3-D1FA89C2B5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C3B6F8-3808-4C86-9B13-ABB2E4E33522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C3B6F8-3808-4C86-9B13-ABB2E4E33522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C3B6F8-3808-4C86-9B13-ABB2E4E33522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C3B6F8-3808-4C86-9B13-ABB2E4E33522}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
