@@ -1,0 +1,27 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: calculate
+  namespace: container-vote
+  labels:
+    app: calculate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calculate
+  template:
+    metadata:
+      labels:
+        app: calculate
+    spec:
+      containers:
+      - name: calculate
+        image: bgever/container-vote:calculate-latest
+        env:
+        - name: SQL_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: connection-string

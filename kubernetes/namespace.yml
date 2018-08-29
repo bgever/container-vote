@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: container-vote
+  labels:
+    name: container-vote

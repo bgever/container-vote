@@ -15,4 +15,18 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="kubernetes\api.yml" />
+    <Content Include="kubernetes\azure\traefik-service.yml" />
+    <Content Include="kubernetes\calculate.yml" />
+    <Content Include="kubernetes\redis.yml" />
+    <Content Include="kubernetes\store.yml" />
+    <Content Include="kubernetes\web.yml" />
+    <Content Include="kubernetes\app-ingress.yml" />
+    <Content Include="kubernetes\local\traefik-service.yml" />
+    <Content Include="kubernetes\namespace.yml" />
+    <Content Include="kubernetes\traefik-deployment.yml" />
+    <Content Include="kubernetes\traefik-rbac.yml" />
+    <Content Include="kubernetes\traefik-web-ui-svc.yml" />
+  </ItemGroup>
 </Project>

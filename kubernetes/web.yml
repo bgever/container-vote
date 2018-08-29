@@ -1,0 +1,37 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: web
+  namespace: container-vote
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v0.0.1
+    spec:
+      containers:
+      - name: web
+        image: bgever/container-vote:web-latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: web
+  namespace: container-vote
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: web
