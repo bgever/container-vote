@@ -1,5 +1,5 @@
 # traefik.toml
-logLevel = "DEBUG"
+logLevel = "INFO"
 defaultEntryPoints = ["http"]
 [entryPoints]
   [entryPoints.http]
@@ -14,13 +14,13 @@ defaultEntryPoints = ["http"]
   [backends.web]
     [backends.web.servers]
       [backends.web.servers.server0]
-        url = "http://web:80"
+        url = "http://containervote.web:80"
         weight = 1
 
   [backends.api]
     [backends.api.servers]
       [backends.api.servers.server0]
-        url = "http://api:80"
+        url = "http://containervote.api:80"
         weight = 1
 
 [frontends]

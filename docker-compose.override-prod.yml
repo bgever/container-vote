@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  containervote.web:
+    environment:
+      - "ASPNETCORE_ENVIRONMENT="
+
+  containervote.api:
+    environment:
+      - "ASPNETCORE_ENVIRONMENT="
+
+  containervote.store:
+    environment:
+    - "SQL_CONNECTION_STRING="
+
+  containervote.calculate:
+    environment:
+    - "SQL_CONNECTION_STRING="

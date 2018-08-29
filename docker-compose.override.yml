@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+
+  containervote.web:
+    environment:
+    - "ASPNETCORE_ENVIRONMENT=Development"
+
+  containervote.api:
+    environment:
+    - "ASPNETCORE_ENVIRONMENT=Development"
+
+  sql:
+    build:
+      context: sql/.
+    # for debugging
+    # entrypoint: ["sh", "-c", "sleep infinity"]
+    restart: always
+    labels:
+    - "traefik.enable=false"
+
+  containervote.store:
+    environment:
+    - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"
+
+  containervote.calculate:
+    environment:
+    - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"

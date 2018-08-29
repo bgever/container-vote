@@ -1,0 +1,39 @@
+services:
+    containervote.api:
+        build: ''
+        image: bgever/container-vote:api-latest
+        labels: []
+        ports:
+        - '80'
+        restart: always
+    containervote.calculate:
+        build: ''
+        image: bgever/container-vote:calculate-latest
+        restart: always
+    containervote.store:
+        build: ''
+        image: bgever/container-vote:store-latest
+        restart: always
+    containervote.web:
+        build: ''
+        image: bgever/container-vote:web-latest
+        labels: []
+        ports:
+        - '80'
+        restart: always
+    redis:
+        image: redis:alpine
+        labels: []
+        restart: always
+    traefik:
+        command: ''
+        image: traefik
+        labels:
+        - traefik.enable=false
+        ports:
+        - 80:80
+        - 8080:8080
+        restart: always
+        volumes:
+        - ${WEBAPP_STORAGE_HOME}/traefik:/etc/traefik
+version: '3.4'

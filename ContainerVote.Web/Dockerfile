@@ -1,16 +1,19 @@
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+WORKDIR /app
+EXPOSE 80
+
 FROM microsoft/dotnet:2.1-sdk AS build
-WORKDIR /app
-
-# copy csproj and restore as distinct layers
-COPY *.csproj .
-RUN dotnet restore
-
-# copy everything else and build app
+WORKDIR /src
+COPY ContainerVote.Web/ContainerVote.Web.csproj ContainerVote.Web/
+RUN dotnet restore ContainerVote.Web/ContainerVote.Web.csproj
 COPY . .
-WORKDIR /app
-RUN dotnet publish -c Release -o out
+WORKDIR /src/ContainerVote.Web
+RUN dotnet build ContainerVote.Web.csproj -c Release -o /app
 
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS runtime
+FROM build AS publish
+RUN dotnet publish ContainerVote.Web.csproj -c Release -o /app
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out ./
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "ContainerVote.Web.dll"]
