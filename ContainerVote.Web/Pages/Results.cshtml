@@ -19,79 +19,46 @@
 <h2>@ViewData["Title"] <span class="live">LIVE!</span></h2>
 
 <script>
-    var submitter;
-    
-    var counts = {
-        DotNet: 0,
-        DotNetCore: 0,
-        JavaScript: 0
-    };
-    
-    var votes = {
-        DotNet: 0,
-        DotNetCore: 0,
-        JavaScript: 0
-    };
-
-    function vote(nominee) {
-        votes[nominee]++;
-        counts[nominee]++;
+    function result(nominee, count) {
         var el = document.getElementById(nominee + 'Count');
-        el.innerText = `(${counts[nominee]})`;
-        el.style.color = '#f90';
-        if (submitter) clearTimeout(submitter);
-        submitter = setTimeout(submit, 1000);
+        el.innerText = count;
+        el.style.color = 'green';
     }
-
-    function submit() {
-        process('DotNet');
-        process('DotNetCore');
-        process('JavaScript');
-    }
-
-    function process(nominee) {
-        if (votes[nominee] === 0) return;
+    
+    setInterval(function() {
         window.fetch(
-            '/api/vote',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount: votes[nominee], nominee })
-            }
+            '/api/votes'
         ).then(
             response => {
-                var el = document.getElementById(nominee + 'Count');
-                el.innerText = `(${counts[nominee]})`;
-                el.style.color = 'green';
+                response.json().then(results => {
+                    result('DotNet', results.dotNet);
+                    result('DotNetCore', results.dotNetCore);
+                    result('JavaScript', results.javaScript);    
+                });
             },
             error => {
                 console.log(`ERROR!`);
             });
-        votes[nominee] = 0;
-    }
+    }, 300);
 </script>
 
-<style>
-    button span { color: silver; }
-</style>
-
 <div class="row nominees">
-    <div class="col-lg-offset-1 col-xs-10 col-sm-4">
-        <button class="btn btn-default col-xs-12" onclick="vote('DotNet')">
-            .NET Framework
-            <span id="DotNetCount">(0)</span>
-        </button>
+    <div class="col-lg-offset-1 col-xs-10 col-sm-offset-0 col-sm-4">
+        <h3 class="col-xs-12">
+            <strong id="DotNetCount">0</strong>
+            votes for .NET Framework
+        </h3>
     </div>
-    <div class="col-lg-offset-1 col-xs-10 col-sm-4">
-        <button class="btn btn-default col-xs-12" onclick="vote('DotNetCore')">
-            .NET Core
-            <span id="DotNetCoreCount">(0)</span>
-        </button>
+    <div class="col-lg-offset-1 col-xs-10 col-sm-offset-0 col-sm-4">
+        <h3 class="col-xs-12">
+            <strong id="DotNetCoreCount">0</strong>
+            votes for .NET Core
+        </h3>
     </div>
-    <div class="col-lg-offset-1 col-xs-10 col-sm-4">
-        <button class="btn btn-default col-xs-12" onclick="vote('JavaScript')">
-            JavaScript
-            <span id="JavaScriptCount">(0)</span>
-        </button>
+    <div class="col-lg-offset-1 col-xs-10 col-sm-offset-0 col-sm-4">
+        <h3 class="col-xs-12">
+            <strong id="JavaScriptCount">0</strong>
+            votes for JavaScript
+        </h3>
     </div>
 </div>
