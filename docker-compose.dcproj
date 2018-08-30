@@ -28,5 +28,6 @@
     <Content Include="kubernetes\traefik-deployment.yml" />
     <Content Include="kubernetes\traefik-rbac.yml" />
     <Content Include="kubernetes\traefik-web-ui-svc.yml" />
+    <Content Include="README.md" />
   </ItemGroup>
 </Project>
