@@ -84,14 +84,13 @@ For Kubernetes, see minikube section below.
 
 #### Azure Kubernetes Service (AKS)
 
-(Not confirmed working)
-
 - Ensure you have the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
   installed, and are logged in.
-- `az aks create --resource-group <group> --name <cluster-name> --node-count <number> --enable-addons monitoring 
-  --generate-ssh-keys`
+- `az aks create --resource-group <group> --name <cluster-name> --node-count <number> --generate-ssh-keys`
 - `az aks get-credentials --resource-group <group> --name <cluster-name>`
-- `kubectl config use-context <cluster-name>`
+- `kubectl config use-context <cluster-name>` (optional with previous step)
 - Create a plaintext file named `connection-string` (no ext) and add the SQL connection string. 
 - `kubectl create secret generic mssql --from-file=./connection-string --namespace=container-vote`
 - `kubectl apply -f kubernetes/ -f kubernetes/azure/`
+- `kubectl --namespace container-vote get service` Note the EXTERNAL-IP of `traefik-ingress-service`.
+- Visit the external IP address to see the app. 
