@@ -2,11 +2,11 @@ version: '3.4'
 
 services:
 
-  containervote.web:
+  web:
     environment:
     - "ASPNETCORE_ENVIRONMENT=Development"
 
-  containervote.api:
+  api:
     environment:
     - "ASPNETCORE_ENVIRONMENT=Development"
 
@@ -19,10 +19,10 @@ services:
     labels:
     - "traefik.enable=false"
 
-  containervote.store:
+  store:
     environment:
     - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"
 
-  containervote.calculate:
+  calculate:
     environment:
     - "SQL_CONNECTION_STRING=Server=sql;Database=ContainerVote;User Id=sa;Password=4DevTestOnly"

@@ -14,7 +14,7 @@ services:
     labels:
     - "traefik.enable=false"
 
-  containervote.web:
+  web:
     image: bgever/container-vote:web-latest
     build:
       context: .
@@ -26,7 +26,7 @@ services:
     - "traefik.backend=web"
     - "traefik.frontend.rule=Host:localhost"
 
-  containervote.api:
+  api:
     image: bgever/container-vote:api-latest
     build:
       context: .
@@ -44,14 +44,14 @@ services:
     labels:
     - "traefik.enable=false"
 
-  containervote.store:
+  store:
     image: bgever/container-vote:store-latest
     build:
       context: .
       dockerfile: ContainerVote.Store/Dockerfile
     restart: always
 
-  containervote.calculate:
+  calculate:
     image: bgever/container-vote:calculate-latest
     build:
       context: .
